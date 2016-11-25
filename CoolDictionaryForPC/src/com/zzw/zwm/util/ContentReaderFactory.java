@@ -7,6 +7,12 @@ import java.util.regex.Pattern;
 
 import com.zzw.zwm.network.HttpConnectionHelper.ContentReader;
 
+/**
+ * 内容读取器工厂，通过此工厂可以得到来自有道、必应、百度三个
+ * 网页的内容读取器，并通过特定的读取器来读取相应网页的翻译内容。
+ * @author zzw
+ * @version 1.0
+ */
 public class ContentReaderFactory {
 	private ContentReaderFactory(){}
 	
@@ -27,7 +33,6 @@ public class ContentReaderFactory {
 					e.printStackTrace();
 					return -1;
 				}
-				//return 0;
 			}
 		};
 	}
@@ -49,7 +54,6 @@ public class ContentReaderFactory {
 					e.printStackTrace();
 					return -1;
 				}
-				//return 0;
 			}
 		};
 	}
@@ -70,12 +74,17 @@ public class ContentReaderFactory {
 					e.printStackTrace();
 					return -1;
 				}
-				//return 0;
 			}
 		};
 	}
 }
 
+/**
+ * 对ContentReader的简单实现，主要实现了（相对）通用的
+ * append方法。
+ * @author zzw
+ * @version 1.0
+ */
 abstract class SimpleContentReader extends ContentReader {
 	private boolean isStart=false;	// 是否开始读取
 	private int headNum=0;			// HTML头标记数

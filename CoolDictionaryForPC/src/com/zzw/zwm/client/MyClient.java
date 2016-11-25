@@ -74,20 +74,10 @@ public class MyClient {
 		Scanner in=new Scanner(System.in);
 		while(in.hasNext()){
 			String msg=in.nextLine();
-			if(msg.equals("connect"))
-				connectServer();
-			else
+			if(msg!=null)
 				write(msg);
 		}
 		in.close();
-	}
-	
-	public void connectServer() throws IOException {
-		if(mServerThread!=null && (!mServerThread.isInterrupted()))
-			return;
-
-		System.out.println("1");
-		
 	}
 	
 	void connect(SelectionKey key){
@@ -166,7 +156,7 @@ public class MyClient {
 				new MyClient();
 			} catch (IOException e) {
 				e.printStackTrace();
-				System.err.println("[ ERROR ] 连接服务器失败！");
+				System.err.println("连接服务器失败！");
 			}
 		}
 	}

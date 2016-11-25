@@ -11,6 +11,12 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+/**
+ * HTTP连接协助者，此类将协助使用者从网络上抓取相关网页，
+ * 并通过相应的内容读取器读取需要的内容。
+ * @author zzw
+ * @version 1.0
+ */
 public class HttpConnectionHelper {
 	private HttpConnectionHelper(){}
 	
@@ -124,6 +130,7 @@ public class HttpConnectionHelper {
 	 * You must override the "append()" method and 
 	 * change the "isFinished" field to "true" in this method!
 	 * @author zzw
+	 * @version 1.0
 	 */
 	public static abstract class ContentReader {
 		protected StringBuilder content;	// 文本内容
