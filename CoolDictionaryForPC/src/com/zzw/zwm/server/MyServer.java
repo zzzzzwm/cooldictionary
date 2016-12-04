@@ -3,11 +3,13 @@ package com.zzw.zwm.server;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
 import java.nio.channels.ClosedChannelException;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.nio.charset.Charset;
 import java.sql.SQLException;
 import java.util.Iterator;
 
@@ -125,12 +127,16 @@ public class MyServer implements MyProcesser.MyDevelopmentKit {
 	/**
 	 * 从客户端读取数据
 	 */
-	public String read(SelectionKey key){
+	synchronized public String read(SelectionKey key){
 		SocketChannel sc=(SocketChannel)key.channel();
-		ByteBuffer bb=ByteBuffer.allocate(1024);
+		ByteBuffer bb=ByteBuffer.allocate(10240);
 		try {
 			sc.read(bb);
-			return new String(bb.array()).trim();
+			bb.flip();
+			CharBuffer cb=Charset.forName("UTF-8").decode(bb);
+			//System.out.println("*"+cb.toString().trim()+"*");
+			return cb.toString().trim();
+			//return new String(bb.array()).trim();
 		} catch (IOException e) {
 			try {
 				if(!key.attachment().toString().contains(".")){
@@ -149,10 +155,10 @@ public class MyServer implements MyProcesser.MyDevelopmentKit {
 	/**
 	 * 向客户端发送数据
 	 */
-	public void write(SelectionKey key, String msg){
+	public synchronized void write(SelectionKey key, String msg){
 		SocketChannel sc=(SocketChannel)key.channel();
 		try {
-			sc.write(ByteBuffer.wrap(msg.getBytes()));
+			sc.write(ByteBuffer.wrap(msg.getBytes("UTF-8")));
 		} catch (IOException e) {
 			try {
 				if(!key.attachment().toString().contains(".")){

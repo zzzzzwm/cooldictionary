@@ -3,9 +3,11 @@ package com.zzw.zwm.client;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
+import java.nio.charset.Charset;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.concurrent.Semaphore;
@@ -106,7 +108,11 @@ public class MyClient {
 		ByteBuffer bb=ByteBuffer.allocate(1024);
 		try {
 			sc.read(bb);
-			return new String(bb.array()).trim();
+			bb.flip();
+			CharBuffer cb=Charset.forName("UTF-8").decode(bb);
+			//System.out.println("*"+cb.toString().trim()+"*");
+			return cb.toString().trim();
+			//return new String(bb.array()).trim();
 		} catch (IOException e) {
 			// TODO 通知用户连接断开，在图形用户界面显示
 			System.err.println("[ BREAK ] 与服务器的连接已断开！");
@@ -134,7 +140,7 @@ public class MyClient {
 		
 		SocketChannel sc=(SocketChannel)mKey.channel();
 		try {
-			sc.write(ByteBuffer.wrap(msg.getBytes()));
+			sc.write(ByteBuffer.wrap(msg.getBytes("UTF-8")));
 		} catch (IOException e) {
 			// TODO 通知用户与服务器的连接已断开，在图形用户界面显示
 			System.err.println("[ BREAK ] 与服务器的连接已断开！");

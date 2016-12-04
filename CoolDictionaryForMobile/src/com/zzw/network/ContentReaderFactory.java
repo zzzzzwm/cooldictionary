@@ -1,11 +1,11 @@
-package com.zzw.zwm.util;
+package com.zzw.network;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.zzw.zwm.network.HttpConnectionHelper.ContentReader;
+import com.zzw.network.HttpConnectionHelper.ContentReader;
 
 /**
  * 内容读取器工厂，通过此工厂可以得到来自有道、必应、百度三个
@@ -42,7 +42,7 @@ public class ContentReaderFactory {
 					return "";
 				int start=kwmhead.end();
 				int end=kwmtail.start();
-				return content.substring(start, end);
+				return content.substring(start, end).trim();
 			}
 			@Override
 			public String getTranslation() {
@@ -123,8 +123,7 @@ public class ContentReaderFactory {
 		};
 	}
 	
-	// "<div id=\"simple_means\""
-	public static ContentReader getBaiduContentReader(
+	public static ContentReader getJinshanContentReader(
 			String tab, int seg){
 		return new SimpleContentReader(tab, seg){
 			@Override
@@ -133,32 +132,32 @@ public class ContentReaderFactory {
 			}
 			@Override
 			public long skip(BufferedReader reader) {
-				try {
-					return reader.skip(3500);
-				} catch (IOException e) {
-					System.err.println("reader skip failed!");
-					e.printStackTrace();
-					return -1;
-				}
+				return 0;
 			}
 			@Override
 			public String getKeyword() {
-				return "";
+				Matcher kwmhead=Pattern.compile("<h1 class=\"keyword\">").matcher(content);
+				Matcher kwmtail=Pattern.compile("</h1>").matcher(content);
+				if((!kwmhead.find()) || (!kwmtail.find()))
+					return "";
+				int start=kwmhead.end();
+				int end=kwmtail.start();
+				return content.substring(start, end).trim();
 			}
 			@Override
 			public String getTranslation() {
 				// 第一层
-				Matcher trmhead=Pattern.compile("<div>").matcher(content);
-				Matcher trmtail=Pattern.compile("</div>").matcher(content);
-				if((!trmhead.find()) || (!trmtail.find(trmhead.end())))
+				Matcher trmhead=Pattern.compile("<ul[^>]*>").matcher(content);
+				Matcher trmtail=Pattern.compile("</ul>").matcher(content);
+				if((!trmhead.find()) || (!trmtail.find()))
 					return "";
 				int start=trmhead.end();
 				int end=trmtail.start();
-				String trans=content.substring(start, end).replaceAll("</?s\\w+>", "");
+				String trans=content.substring(start, end).replaceAll("</?s?p[^>]*>", "");
 				// 第二层
 				StringBuilder sb=new StringBuilder();
-				trmhead=Pattern.compile("<p>").matcher(trans);
-				trmtail=Pattern.compile("</p>").matcher(trans);
+				trmhead=Pattern.compile("<li[^>]*>").matcher(trans);
+				trmtail=Pattern.compile("</li>").matcher(trans);
 				while(trmhead.find() && trmtail.find()){
 					sb.append(trans.substring(trmhead.end(), trmtail.start())).
 					append("\n");
@@ -166,28 +165,6 @@ public class ContentReaderFactory {
 				if(sb.length()>0)
 					sb.deleteCharAt(sb.length()-1);
 				return sb.toString();
-			}
-		};
-	}
-	
-	public static ContentReader getJinshanContentReader(
-			String tab, int seg){
-		return new SimpleContentReader(tab, seg){
-			@Override
-			public String getKeyword() {
-				return null;
-			}
-			@Override
-			public String getTranslation() {
-				return null;
-			}
-			@Override
-			public long skip(BufferedReader reader) {
-				return 0;
-			}
-			@Override
-			public String readNext(BufferedReader reader) {
-				return readLine(reader);
 			}
 		};
 	}
@@ -214,6 +191,7 @@ public class ContentReaderFactory {
 		
 		@Override
 		public void append(String s) {
+			//Log.d("TAG", s);
 			if(s.contains(startTab)){
 				Matcher m=Pattern.compile(startTab).matcher(s);
 				m.find();

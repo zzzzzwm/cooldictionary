@@ -40,7 +40,7 @@ public class MyDataBaseTest {
 			System.out.println("====================");
 			res=helper.query("enjoy", null, null, null);
 			if(res!=null){
-				System.out.println("WORD\tYOUDAO\tBING\tBAIDU");
+				System.out.println("WORD\tYOUDAO\tBING\tJINSHAN");
 				while(res.next()){
 					System.out.println(res.getString(1)+"\t"+
 							res.getString(2)+"\t"+
@@ -77,7 +77,7 @@ public class MyDataBaseTest {
 			System.out.println("====================");
 			res=helper.query("enjoy", null, null, null);
 			if(res!=null){
-				System.out.println("WORD\tYOUDAO\tBING\tBAIDU");
+				System.out.println("WORD\tYOUDAO\tBING\tJINSHAN");
 				while(res.next()){
 					System.out.println(res.getString(1)+"\t"+
 							res.getString(2)+"\t"+
@@ -114,7 +114,7 @@ public class MyDataBaseTest {
 			System.out.println("====================");
 			res=helper.query("enjoy", null, null, null);
 			if(res!=null){
-				System.out.println("WORD\tYOUDAO\tBING\tBAIDU");
+				System.out.println("WORD\tYOUDAO\tBING\tJINSHAN");
 				while(res.next()){
 					System.out.println(res.getString(1)+"\t"+
 							res.getString(2)+"\t"+

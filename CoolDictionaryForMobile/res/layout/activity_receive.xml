@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#d0000000"
+        android:padding="5dp" >
+
+        <ImageButton
+            android:id="@+id/rece_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#00ffffff"
+            android:scaleType="centerInside"
+            android:src="@drawable/back"
+            android:contentDescription="@string/back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/back"
+            android:textColor="#ffffffff"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/rece_bg"
+            android:contentDescription="@string/cd_rece_bg" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp" >
+
+            <TextView
+                android:id="@+id/rece_head"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:background="#50ff2050" >
+
+                <TextView
+                    android:id="@+id/rece_title1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:textColor="#ffffffff" />
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/rece_title1"
+                    android:layout_centerHorizontal="false"
+                    android:layout_centerVertical="false"
+                    android:background="#70ff0000" >
+
+                    <TextView
+                        android:id="@+id/rece_trans1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#ffffffff" />
+                    
+                </ScrollView>
+
+                <TextView
+                    android:id="@+id/rece_num1"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:textColor="#ffffffff" />
+
+                <ImageButton
+                    android:id="@+id/rece_enjoy1"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toStartOf="@id/rece_num1"
+                    android:layout_toLeftOf="@id/rece_num1"
+                    android:background="#00ffffff"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/notenjoy"
+                    android:contentDescription="@string/cd_enjoy" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:background="#50ff2050" >
+
+                <TextView
+                    android:id="@+id/rece_title2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:textColor="#ffffffff" />
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/rece_title2"
+                    android:layout_centerHorizontal="false"
+                    android:layout_centerVertical="false"
+                    android:background="#70ff0000" >
+                    
+                    <TextView
+                        android:id="@+id/rece_trans2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#ffffffff" />
+
+                </ScrollView>
+                
+                <TextView
+                    android:id="@+id/rece_num2"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:textColor="#ffffffff" />
+
+                <ImageButton
+                    android:id="@+id/rece_enjoy2"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toStartOf="@id/rece_num2"
+                    android:layout_toLeftOf="@id/rece_num2"
+                    android:background="#00ffffff"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/notenjoy"
+                    android:contentDescription="@string/cd_enjoy" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:background="#50ff2050" >
+
+                <TextView
+                    android:id="@+id/rece_title3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:textColor="#ffffffff" />
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/rece_title3"
+                    android:layout_centerVertical="false"
+                    android:background="#70ff0000" >
+                    
+                    <TextView
+                        android:id="@+id/rece_trans3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#ffffffff" />
+
+                </ScrollView>
+                
+                <TextView
+                    android:id="@+id/rece_num3"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:textColor="#ffffffff" />
+
+                <ImageButton
+                    android:id="@+id/rece_enjoy3"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toStartOf="@id/rece_num3"
+                    android:layout_toLeftOf="@id/rece_num3"
+                    android:background="#00ffffff"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/notenjoy"
+                    android:contentDescription="@string/cd_enjoy" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/rece_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="#ff000000" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>

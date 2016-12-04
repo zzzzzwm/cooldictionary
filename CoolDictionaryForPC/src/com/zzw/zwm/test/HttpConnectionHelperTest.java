@@ -9,14 +9,14 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.LinkedHashMap;
 import com.zzw.zwm.network.HttpConnectionHelper;
-import com.zzw.zwm.network.HttpConnectionHelper.ContentReader;
 import com.zzw.zwm.util.ContentReaderFactory;
+import com.zzw.zwm.util.ContentReaderFactory.SimpleContentReader;
 
 public class HttpConnectionHelperTest {
 	public static void main(String[] args){
 		// 准备文件输入输出
 		BufferedReader in=null;
-		PrintWriter youdao=null, bing=null, baidu=null;
+		PrintWriter youdao=null, bing=null, baidu=null, jinshan=null;
 		
 		try {
 			in=new BufferedReader(
@@ -28,21 +28,22 @@ public class HttpConnectionHelperTest {
 					new FileOutputStream("bing.txt"));
 			baidu=new PrintWriter(
 					new FileOutputStream("baidu.txt"));
+			jinshan=new PrintWriter(
+					new FileOutputStream("jinshan.txt"));
 		} catch (FileNotFoundException e) {
 			System.err.println("file not find!");
 			e.printStackTrace();
 		}
 		
 		// 准备内容读取器
-		ContentReader youdaocr=ContentReaderFactory.
-				getYoudaoContentReader(
-						"<h2 class=\"wordbook-js\">", 2);
-		ContentReader bingcr=ContentReaderFactory.
-				getBingContentReader(
-						"<div class=\"hd_area\">", 2);
-		ContentReader baiducr=ContentReaderFactory.
-				getBaiduContentReader(
-						"<div id=\"english-header\"", 3);
+		SimpleContentReader youdaocr=(SimpleContentReader)ContentReaderFactory.
+				getYoudaoContentReader("<h2 class=\"wordbook-js\">", 2);
+		SimpleContentReader bingcr=(SimpleContentReader)ContentReaderFactory.
+				getBingContentReader("<div class=\"hd_area\">", 2);
+		SimpleContentReader baiducr=(SimpleContentReader)ContentReaderFactory.
+				getBaiduContentReader("<div id=\"simple_means\"", 2);
+		SimpleContentReader jinshancr=(SimpleContentReader)ContentReaderFactory.
+				getJinshanContentReader("<div class=\"in-base-top clearfix\" class=\"clearfix\">", 2);
 		LinkedHashMap<String,String> query=
 				new LinkedHashMap<String,String>();
 		
@@ -52,28 +53,33 @@ public class HttpConnectionHelperTest {
 		try {
 			while((word=in.readLine())!=null){
 				System.out.println("TEST - "+word);
-				// 查询有道词典
+				/*// 查询有道词典
 				query.clear();
 				query.put("q", word);
 				youdaocr.reset();
 				HttpConnectionHelper.get("http://dict.youdao.com", 
 						"/search", query, "UTF-8", youdaocr);
-				youdao.write(youdaocr.getCount()+"\t"+word+"\n");
-				youdao.write(youdaocr.getContent()+"\n\n");
+				//youdao.write(youdaocr.getCount()+"\t"+word+"\n");
+				youdao.write(youdaocr.getKeyword()+"\n"+youdaocr.getTranslation()+"\n\n");
 				// 查询必应词典
 				bingcr.reset();
 				HttpConnectionHelper.get("http://cn.bing.com", 
 						"/dict/search", query, "UTF-8", bingcr);
-				bing.write(bingcr.getCount()+"\t"+word+"\n");
-				bing.write(bingcr.getContent()+"\n\n");
+				//bing.write(bingcr.getCount()+"\t"+word+"\n");
+				bing.write(bingcr.getKeyword()+"\n"+bingcr.getTranslation()+"\n\n");
 				// 查询百度词典
 				query.clear();
 				query.put("wd", word);
 				baiducr.reset();
 				HttpConnectionHelper.get("http://dict.baidu.com", 
 						"/s", query, "UTF-8", baiducr);
-				baidu.write(baiducr.getCount()+"\t"+word+"\n");
-				baidu.write(baiducr.getContent()+"\n\n");
+				//baidu.write(baiducr.getCount()+"\t"+word+"\n");
+				baidu.write(baiducr.getTranslation()+"\n\n");
+				*/// 查询金山
+				jinshancr.reset();
+				HttpConnectionHelper.get("http://www.iciba.com", 
+						word, null, "UTF-8", jinshancr);
+				jinshan.write(jinshancr.getContent()+"\n\n");
 			}
 			System.out.println("TEST FINISHED!");
 		} catch (IOException e) {

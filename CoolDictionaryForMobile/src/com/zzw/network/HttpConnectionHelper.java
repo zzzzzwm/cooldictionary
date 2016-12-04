@@ -1,4 +1,4 @@
-package com.zzw.zwm.network;
+package com.zzw.network;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -65,7 +65,7 @@ public class HttpConnectionHelper {
 			 * Reader抽象类，另外在com.zzw.zwm.util.ContentReader-
 			 * Factory类中提供了三种具体实现类。
 			 */
-			cr.skip(reader);
+			//cr.skip(reader);
 			while(!cr.isFinished() && 
 				  (next=cr.readNext(reader))!=null){
 				cr.append(next.trim());
@@ -144,6 +144,8 @@ public class HttpConnectionHelper {
 			head=Pattern.compile("<\\w+");
 			tail=Pattern.compile("<?/\\w*>");
 		}
+		
+		public abstract long getCount();
 		
 		/* 在这里决定跳过多少比特数。有时候回遇到抓取的网页开头有
 		 * 大量冗余信息（比如定义各种style），这时候可以实现skip()

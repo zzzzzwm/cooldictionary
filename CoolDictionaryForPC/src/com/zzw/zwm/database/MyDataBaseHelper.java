@@ -28,13 +28,14 @@ public class MyDataBaseHelper {
 			"word varchar(20) primary key,"+
 			"youdao integer not null,"+
 			"bing integer not null,"+
-			"baidu integer not null);";
+			"jinshan integer not null);";
 	// emailbox(send,receive,word,date);
 	private static final String CREATE_EMAILBOX_TABLE=
 			"create table if not exists emailbox("+
 			"send varchar(20) not null,"+
 			"receive varchar(20) not null,"+
 			"word varchar(20) not null,"+
+			"content varchar(1024) not null,"+
 			"date varchar(20) not null,"+
 			"index(send),index(receive),index(word),"+
 			"foreign key(send) references user(name) on delete cascade,"+

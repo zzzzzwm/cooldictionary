@@ -41,21 +41,21 @@ public class MyDataBase {
 		mStatement=connection.createStatement();
 	}
 	
-	public ResultSet query(String sql) throws SQLException{
+	public synchronized ResultSet query(String sql) throws SQLException{
 		return mStatement.executeQuery(sql);
 	}
 	
-	public boolean execute(String sql) throws SQLException{
+	public synchronized boolean execute(String sql) throws SQLException{
 		return mStatement.execute(sql);
 	}
 	
-	public int executeReturnCount(String sql) throws SQLException{
+	public synchronized int executeReturnCount(String sql) throws SQLException{
 		if(!mStatement.execute(sql))
 			return mStatement.getUpdateCount();
 		return 0;
 	}
 	
-	public ResultSet executeReturnResult(String sql) throws SQLException{
+	public synchronized ResultSet executeReturnResult(String sql) throws SQLException{
 		if(mStatement.execute(sql))
 			return mStatement.getResultSet();
 		return null;
